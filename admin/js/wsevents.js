@@ -181,6 +181,7 @@ var handleConfigMsg = function(msg){
 	var newClient = {name:msg.config.name, remoteAddress:msg.config.remoteAddress};
 	var clientMarkup = $(clientTemplate(newClient));
 	clientMarkup.find(".infobutton").click(clickInfo);
+	clientMarkup.find('.arrow').click(toggleItems);
 	$("#client_list").append(clientMarkup);
 	clients.push(newClient);
 	//and then updated it with the additional info.

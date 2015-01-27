@@ -17,15 +17,15 @@ var currState = NONE_SELECTED;
 var setupLinks = function() {
 	$(".about-link").on("click", function(event) {
         window.open("http://docs.spacebrew.cc");
-        return false;		
+        return false;
 	})
 	$(".contact-link").on("click", function(event) {
         window.open("http://docs.spacebrew.cc/contact/");
-        return false;		
+        return false;
 	})
 	$(".lab-link").on("click", function(event) {
         window.open("http://www.rockwellgroup.com/lab");
-        return false;		
+        return false;
 	})
 }
 
@@ -55,9 +55,9 @@ var dorouteradio = function(e){
 var changeRoute = function(changeType, fromId, toId){
     var selectedPub = fromId.split('_').map(Unsafetify);
     var selectedSub = toId.split('_').map(Unsafetify);
-    var clientName = 1, 
-        remoteAddress = clientName + 1, 
-        name = remoteAddress + 1, 
+    var clientName = 1,
+        remoteAddress = clientName + 1,
+        name = remoteAddress + 1,
         type = name + 1;
     if (selectedPub.length == type + 1 && selectedSub.length == type + 1){
         var m = {

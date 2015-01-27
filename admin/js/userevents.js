@@ -17,7 +17,7 @@ var clickInfo = function(event){
 
 var clickBody = function(event){
 	event.preventDefault();
-	//if we are in a selected state, then when we click somewhere innocuous, 
+	//if we are in a selected state, then when we click somewhere innocuous,
 	//we should go to an unselected state
 	if (currState != NONE_SELECTED){
 		if (!event.target.classList.contains("itemwrapper")){
@@ -77,6 +77,7 @@ var outItem = function(event){
 var clickItem = function(event){
 	event.preventDefault();
 	var item;
+	console.log(item); //will
 	if (event.target.classList.contains("deletebutton")){
 		item = $(event.target).parent();
 	} else {
@@ -97,7 +98,7 @@ var firstClick = function(item, type, pub){
 	var context = {
 		clicked:true,
 		type:type,
-		id:item.prop('id'), 
+		id:item.prop('id'),
 		pub:pub
 	};
 	var cssFile = cssTypeTemplate(context);
@@ -151,6 +152,10 @@ var secondClick = function(item, type, pub){
 var getItemType = function(_item){
 	return _item.hasClass("boolean") ? "boolean" : _item.hasClass("string") ? "string" : _item.hasClass("number") ? "number" : "range";
 };
+
+var toggleItems = function(event){
+	$(event.target).closest(".clientrow").toggleClass('expand');
+}
 
 var cssTypeTemplate = Handlebars.compile("css/{{pub}}_{{type}}.css");
 var cssSelectedTemplate = Handlebars.compile(document.getElementById( 'active_css_handlebar' ).textContent);

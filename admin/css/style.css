@@ -123,6 +123,7 @@ body{
 	margin-right:8px;
 }
 .itemanchor{
+	display: none;
 	height:25px;
 	width:55px;
 	padding-right:10px;
@@ -168,8 +169,10 @@ body{
 	font-size:10pt;
 	/*-webkit-transition:all .4s ease-in-out;*/
 	pointer-events:none;
+	color: transparent;
 }
 .itemwrapper{
+	position: absolute;
 	padding:2px 4px 2px 4px;
 	cursor:pointer;
 	-webkit-touch-callout: none;
@@ -178,6 +181,33 @@ body{
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
+}
+.clientrow.expand .itemwrapper{
+	position: relative;
+}
+.arrow{
+	position: absolute;
+	right: 20px;
+	top: 16px;
+	width: 0;
+	height: 0;
+	border-top: 8px solid transparent;
+	border-bottom: 8px solid transparent;
+	border-left: 12px solid black;
+}
+.clientrow.expand .arrow{
+	top: 18px;
+	width: 0;
+	height: 0;
+	border-left: 8px solid transparent;
+	border-right: 8px solid transparent;
+	border-top: 12px solid black;
+}
+.clientrow.expand .item{
+	color: black;
+}
+.clientrow.expand .itemanchor{
+	display: block;
 }
 .publisher.itemwrapper{
 	padding-right:8px;
@@ -213,10 +243,8 @@ body{
 	height:100%;
 	background-color:rgb(230,230,230);
 }
-.client{
-
-}
 .clientdata{
+	position: relative;
 	padding-top:5px;
 	padding-bottom:4px;
 }
@@ -253,7 +281,11 @@ body{
 }
 .pubdata{
 	margin-right:93px;
+	padding-top: 9px;
 	min-width:308px;
+}
+.subdata{
+	padding-top: 9px;
 }
 ._jsPlumb_endpoint{
 	z-index:5;
@@ -326,5 +358,5 @@ body{
 }
 
 div.links{
-   cursor: hand; cursor: pointer; 
+   cursor: hand; cursor: pointer;
 }

@@ -12,7 +12,7 @@ myPlumb.connectorPaintStyle = {
 	outlineColor:"white",
 	outlineWidth:0
 };
-// .. and this is the hover style. 
+// .. and this is the hover style.
 myPlumb.connectorHoverStyle = {
 	lineWidth:2,
 	strokeStyle:"#ff0",
@@ -76,6 +76,6 @@ triggerPaint = function(){
 	window.requestAnimationFrame(triggerPaint);
 };
 
-window.requestAnimationFrame = (window.requestAnimationFrame 
-                                || window.webkitRequestAnimationFrame 
+window.requestAnimationFrame = (window.requestAnimationFrame
+                                || window.webkitRequestAnimationFrame
                                 || window.mozRequestAnimationFrame);
