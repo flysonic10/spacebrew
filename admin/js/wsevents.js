@@ -1,4 +1,4 @@
-var name = gup('name') || window.location.href; 
+var name = gup('name') || window.location.href;
 var server = gup('server') || 'localhost';
 var port = gup('port') || '9000';
 var debug = gup('debug') || false;
@@ -6,6 +6,8 @@ var debug = gup('debug') || false;
 var ws;
 
 var reconnect_timer = undefined;
+
+var offline = [];
 
 var setupWebsocket = function(){
 	ws = new WebSocket("ws://"+server+":" + Number(port));
@@ -55,7 +57,7 @@ var setupWebsocket = function(){
 				console.log("[reconnect_timer] attempting to reconnect to spacebrew");
 				removeAllClients();
 				setupWebsocket();
-			}, 5000);			
+			}, 5000);
 		}
 		///////////////////////////////////////////
 	};
@@ -94,14 +96,15 @@ var handleMessageMsg = function(msg){
 	var fromEndpoint = myPlumb.endpoints[itemSelector];
 	if (fromEndpoint){
 		var getImage = function(active){
-			return "img/node-"+($("#"+itemSelector).attr('class').indexOf('sub_') < 0 
-				? "open" 
+			return "img/node-"+($("#"+itemSelector).attr('class').indexOf('sub_') < 0
+				? "open"
 				: "closed")+(active ? "-active-i" : "") + ".png";
 		};
 		fromEndpoint.setImage(getImage(true));//.setPaintStyle(myPlumb.endpointActiveStyle);
-		setTimeout(function(){
-			fromEndpoint.setImage(getImage(false));/*setPaintStyle(myPlumb.endpointPaintStyle);*/
-		},200);
+		clearTimeout(offline[msg.message.name]);
+		offline[msg.message.name] = setTimeout(function(){
+			fromEndpoint.setImage(getImage(false));
+		}, 2000);
 	}
 };
 
@@ -168,7 +171,7 @@ var handleConfigMsg = function(msg){
 			addEndpoints(msg);
 			//update the description
 			if (msg.config.description){
-				var idPart ="info_"+msg.config.name.Safetify()+"_"+msg.config.remoteAddress.Safetify(); 
+				var idPart ="info_"+msg.config.name.Safetify()+"_"+msg.config.remoteAddress.Safetify();
 				$("#button_"+idPart).css("display","inline-block");
 				$("#"+idPart+" span").html(msg.config.description);
 				client.find(".clientnickname, .clientname").attr("title",msg.config.description);
@@ -193,7 +196,7 @@ var removeClient = function(client){
 		remoteAddress = client.remoteAddress,
 		name, type;
 	$("#"+clientName.Safetify()+"_"+remoteAddress.Safetify()).remove();
-	
+
 	if (client.config && client.config.publish && client.config.publish.messages){
 		for(var i = 0; i < client.config.publish.messages.length; i++){
 			name = client.config.publish.messages[i].name;
